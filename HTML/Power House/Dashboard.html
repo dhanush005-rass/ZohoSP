@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power House - Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            scroll-behavior: smooth;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background-color: #1e1e1e;
+            color: #fff;
+            position: relative;
+            z-index: 0;
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #1e1e1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+        }
+
+        .spinner-bars {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .bar {
+            width: 5px;
+            height: 24px;
+            background: white;
+            border-radius: 3px;
+            animation: bars 1.2s infinite ease-in-out;
+        }
+
+        .bar:nth-child(1) { animation-delay: -1.2s; }
+        .bar:nth-child(2) { animation-delay: -1.0s; }
+        .bar:nth-child(3) { animation-delay: -0.8s; }
+        .bar:nth-child(4) { animation-delay: -0.6s; }
+
+        @keyframes bars {
+            0%, 40%, 100% { transform: scaleY(0.4); }
+            20% { transform: scaleY(1); }
+        }
+
+        .loading-text {
+            color: white;
+            margin-top: 16px;
+            font-size: 16px;
+            font-weight: 500;
+            opacity: 0.9;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        body.loaded #loader {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Page Styles */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        p.value {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #cfcfcf;
+        }
+
+        /* Gradient Background */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .morphing-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: rgba(44,44,44,0.9);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(6px);
+        }
+
+        .navbar img {
+            width: 50px;
+            margin-right: 15px;
+        }
+
+        .navbar h1 {
+            flex-grow: 1;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .navbar a {
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+            background: #3a3a3a;
+            padding: 10px 18px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .navbar a:hover,
+        .navbar a.active {
+            background: #505050;
+        }
+
+        /* Dashboard */
+        section {
+            min-height: 100vh;
+            padding: 80px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .Dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 40px;
+        }
+
+        .Dashboard {
+            background-color: rgba(44,44,44,0.9);
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            transition: transform 0.2s;
+            backdrop-filter: blur(4px);
+        }
+
+        .Dashboard:hover {
+            transform: translateY(-5px);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Loader -->
+    <div id="loader">
+        <div class="spinner-bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="loading-text">Loading</div>
+    </div>
+
+    <!-- Background -->
+    <div class="morphing-bg"></div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <img src="Images/Power House.png" alt="Logo">
+        <h1>Power House</h1>
+        <a href="Home.html">Home</a>
+    </div>
+
+    <!-- Dashboard Section -->
+    <section id="Dashboard">
+        <h1>Dashboard</h1>
+        <div class="Dashboard-container">
+            <div class="Dashboard">
+                <h2>Voltage</h2>
+                <p class="value" id="voltage">-- V</p>
+            </div>
+            <div class="Dashboard">
+                <h2>Current</h2>
+                <p class="value" id="current">-- A</p>
+            </div>
+            <div class="Dashboard">
+                <h2>Power</h2>
+                <p class="value" id="power">-- W</p>
+            </div>
+            <div class="Dashboard">
+                <h2>Vibration</h2>
+                <p class="value" id="vibration">NILL</p>
+            </div>
+            <div class="Dashboard">
+                <h2>Flow Rate</h2>
+                <p class="value" id="flow">-- %</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+
+        // Random generator
+        function getRandom(min, max) {
+            return (Math.random() * (max - min) + min).toFixed(2);
+        }
+
+        function updateDashboard() {
+            const voltage = getRandom(200, 230);
+            const current = getRandom(13, 16);
+            const power = (voltage * current).toFixed(2);
+            const flow = getRandom(90, 100);
+            const vibration = "NILL";
+
+            document.getElementById('voltage').textContent = `${voltage} V`;
+            document.getElementById('current').textContent = `${current} A`;
+            document.getElementById('power').textContent = `${power} W`;
+            document.getElementById('flow').textContent = `${flow} %`;
+            document.getElementById('vibration').textContent = vibration;
+        }
+
+        setInterval(updateDashboard, 1000);
+    </script>
+
+</body>
+</html>

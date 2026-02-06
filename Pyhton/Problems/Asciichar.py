@@ -1,0 +1,10 @@
+print("Enter The Digits:")
+num1 = int(input())
+num2 = int(input())
+num3 = int(input())
+num4 = int(input())
+
+print(num1,"-",chr(num1))
+print(num2,"-",chr(num2))
+print(num3,"-",chr(num3))
+print(num4,"-",chr(num4))

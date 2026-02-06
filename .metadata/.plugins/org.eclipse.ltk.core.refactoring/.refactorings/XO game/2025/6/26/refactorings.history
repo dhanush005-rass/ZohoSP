@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Convert local variable &apos;XO.Main.main(...).s&apos; in &apos;XO.Main.main(...)&apos; to field&#x0D;&#x0A;- Original project: &apos;XO game&apos;&#x0D;&#x0A;- Original element: &apos;XO.Main.main(...).s&apos;&#x0D;&#x0A;- Field name: &apos;s&apos;&#x0D;&#x0A;- Initialize field in method&#x0D;&#x0A;- Declared visibility: &apos;private&apos;&#x0D;&#x0A;- Declare field &apos;static&apos;" description="Convert local variable &apos;s&apos; to field" final="false" flags="2" id="org.eclipse.jdt.ui.promote.temp" initialize="1" input="/src&lt;XO{Main.java" name="s" selection="323 24" stamp="1750733307837" static="true" version="1.0" visibility="2"/>
+</session>
